@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Animação</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      font-family: "Courier New", monospace;
+      color: #e2e8f0;
+    }
+    .laptop {
+      width: 500px;
+      height: 320px;
+      background: #111;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    .screen {
+      background: #000;
+      height: 100%;
+      border-radius: 6px;
+      padding: 12px;
+      overflow: hidden;
+      color: #0f0;
+      font-size: 16px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+    .typing {
+      border-right: 2px solid #0f0;
+      display: inline-block;
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    .base {
+      width: 520px;
+      height: 20px;
+      background: #333;
+      border-radius: 0 0 10px 10px;
+      margin: auto;
+      margin-top: -5px;
+    }
+    .btn-voltar {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+    .btn-voltar:hover {
+      background: #1d4ed8;
+    }
+
+    /* Botão fixo para celular */
+    .btn-fixo {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 18px;
+      border-radius: 50px;
+      background: #2563eb;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: background 0.3s;
+      z-index: 1000;
+    }
+    .btn-fixo:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 600px) {
+      .laptop { width: 95%; height: auto; }
+      .screen { font-size: 14px; min-height: 260px; }
+      .base { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="laptop">
+      <div class="screen" id="output">
+        <span class="typing" id="cursor"></span>
+      </div>
+    </div>
+    <div class="base"></div>
+  </div>
+
+  <!-- Botão fixo para celular -->
+  <a href="index.html" class="btn-fixo">⬅ Início</a>
+
+  <script>
+    const texto = [
+      "<!DOCTYPE html>",
+      "<html>",
+      "<head>",
+      "  <title>Projeto</title>",
+      "</head>",
+      "<body>",
+      "  <h1>Feito por Mayron Fuchter Rech e Yuri</h1>",
+      "  <p>Escola: E.E.B Prof Heleodoro Borges</p>",
+      "  <p>Turma: 102 - Técnico em Informática</p>",
+      "  <p>Turno: Integral</p>",
+      "  <a href='index.html' class='btn-voltar'>⬅ Voltar para o Início</a>",
+      "</body>",
+      "</html>"
+    ];
+
+    let i = 0;
+    let j = 0;
+    const speed = 60; // Velocidade da digitação
+    const output = document.getElementById("output");
+    const cursor = document.getElementById("cursor");
+
+    function type() {
+      if (i < texto.length) {
+        if (j < texto[i].length) {
+          cursor.insertAdjacentText("beforebegin", texto[i][j]);
+          j++;
+          setTimeout(type, speed);
+        } else {
+          cursor.insertAdjacentHTML("beforebegin", "\n");
+          i++;
+          j = 0;
+          setTimeout(type, speed);
+        }
+      }
+    }
+
+    type();
+  </script>
+</body>
+</html>
+
